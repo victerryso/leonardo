@@ -1,3 +1,5 @@
-const Home = () => <main>Main</main>;
+import AppLayout from "./components/app-layout";
 
-export default Home;
+const HomePage = () => <AppLayout>Home</AppLayout>;
+
+export default HomePage;
