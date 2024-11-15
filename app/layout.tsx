@@ -1,3 +1,4 @@
+import ChakraProvider from "@/app/components/chakra-provider";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,7 +12,9 @@ interface RootLayoutProps {
 
 const RootLayout = ({ children }: RootLayoutProps) => (
   <html lang="en">
-    <body>{children}</body>
+    <body>
+      <ChakraProvider>{children}</ChakraProvider>
+    </body>
   </html>
 );
 
