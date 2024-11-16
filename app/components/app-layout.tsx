@@ -1,4 +1,5 @@
-import { Box, Container, Heading } from "@chakra-ui/react";
+import { Container } from "@chakra-ui/react";
+import Header from "./header";
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -6,15 +7,9 @@ interface AppLayoutProps {
 
 const AppLayout = ({ children }: AppLayoutProps) => (
   <>
-    <header>
-      <Box width="100%" padding="4">
-        <Container maxW="7xl">
-          <Heading as="span">Rick and Morty</Heading>
-        </Container>
-      </Box>
-    </header>
+    <Header />
     <main>
-      <Container centerContent maxW="2xl" paddingY="8">
+      <Container maxW="2xl" paddingY="8">
         {children}
       </Container>
     </main>
