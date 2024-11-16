@@ -1,5 +1,6 @@
 "use client";
 
+import ApolloProvider from "@/app/components/apollo-provider";
 import ChakraProvider from "@/app/components/chakra-provider";
 import AuthContext, {
   DEFAULT_AUTH,
@@ -40,11 +41,13 @@ const RootLayout = ({ children }: RootLayoutProps) => {
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <ChakraProvider>
-          <AuthContext.Provider value={{ auth, setAuth }}>
-            {isReady && children}
-          </AuthContext.Provider>
-        </ChakraProvider>
+        <ApolloProvider>
+          <ChakraProvider>
+            <AuthContext.Provider value={{ auth, setAuth }}>
+              {isReady && children}
+            </AuthContext.Provider>
+          </ChakraProvider>
+        </ApolloProvider>
       </body>
     </html>
   );
