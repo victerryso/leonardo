@@ -1,4 +1,4 @@
-import { Auth } from "../contexts/auth-context";
+import { Auth, DEFAULT_AUTH } from "../contexts/auth-context";
 
 const AUTH_KEY = "AUTH";
 
@@ -8,6 +8,8 @@ export const getAuthFromLocalStorage = () => {
   if (item) {
     return JSON.parse(item);
   }
+
+  return DEFAULT_AUTH;
 };
 
 export const updateAuthInLocalStorage = (auth: Auth) => {
