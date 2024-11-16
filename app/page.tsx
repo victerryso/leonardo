@@ -11,7 +11,7 @@ const HomePage = () => {
 
   return (
     <AppLayout>
-      <Heading as="h1">Howdy {auth?.username}! 👋</Heading>
+      <Heading as="h1">Howdy {auth.username}! 👋</Heading>
     </AppLayout>
   );
 };

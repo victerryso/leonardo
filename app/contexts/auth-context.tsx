@@ -17,7 +17,7 @@ const AuthContext = createContext({
 });
 
 export const isAuthenticated = (auth: Auth) => {
-  return Boolean(auth?.username);
+  return Boolean(auth.username);
 };
 
 export default AuthContext;
