@@ -9,6 +9,7 @@ import { createGetCharactersQuery } from "./api/queries";
 import CharacterList from "./components/character-list";
 import { HStack } from "@chakra-ui/react";
 import {
+  PaginationItems,
   PaginationNextTrigger,
   PaginationPageText,
   PaginationPrevTrigger,
@@ -57,7 +58,12 @@ const HomePage = () => {
               pageSize={PAGE_SIZE}
               onPageChange={(event) => setPage(event.page)}
             >
-              <HStack>
+              <HStack hideBelow="sm">
+                <PaginationPrevTrigger />
+                <PaginationItems />
+                <PaginationNextTrigger />
+              </HStack>
+              <HStack hideFrom="sm">
                 <PaginationPrevTrigger />
                 <PaginationPageText />
                 <PaginationNextTrigger />
