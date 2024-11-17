@@ -42,37 +42,39 @@ const HomePage = () => {
 
   return (
     <AppLayout>
-      {loading && <Loading />}
-      {error && <ErrorMessage />}
-      {data && (
-        <Stack gap="4">
-          <Heading as="h1">Howdy {auth.username}! 👋</Heading>
+      <section>
+        {loading && <Loading />}
+        {error && <ErrorMessage />}
+        {data && (
+          <Stack gap="4">
+            <Heading as="h1">Howdy {auth.username}! 👋</Heading>
 
-          <CharacterList characters={characters} />
+            <CharacterList characters={characters} />
 
-          <Center>
-            <PaginationRoot
-              count={count}
-              page={page}
-              pageSize={PAGE_SIZE}
-              onPageChange={(event) => setPage(event.page)}
-            >
-              <HStack hideBelow="sm">
-                <PaginationPrevTrigger />
-                <PaginationItems />
-                <PaginationNextTrigger />
-              </HStack>
-              <HStack hideFrom="sm">
-                <PaginationPrevTrigger />
-                <PaginationPageText />
-                <PaginationNextTrigger />
-              </HStack>
-            </PaginationRoot>
-          </Center>
+            <Center>
+              <PaginationRoot
+                count={count}
+                page={page}
+                pageSize={PAGE_SIZE}
+                onPageChange={(event) => setPage(event.page)}
+              >
+                <HStack hideBelow="sm">
+                  <PaginationPrevTrigger />
+                  <PaginationItems />
+                  <PaginationNextTrigger />
+                </HStack>
+                <HStack hideFrom="sm">
+                  <PaginationPrevTrigger />
+                  <PaginationPageText />
+                  <PaginationNextTrigger />
+                </HStack>
+              </PaginationRoot>
+            </Center>
 
-          {characterId && <CharacterModal characterId={characterId} />}
-        </Stack>
-      )}
+            {characterId && <CharacterModal characterId={characterId} />}
+          </Stack>
+        )}
+      </section>
     </AppLayout>
   );
 };
