@@ -1,4 +1,4 @@
-import { Auth, DEFAULT_AUTH } from "../contexts/auth-context";
+import { Auth, DEFAULT_AUTH } from "../contexts/auth";
 
 const AUTH_KEY = "AUTH";
 

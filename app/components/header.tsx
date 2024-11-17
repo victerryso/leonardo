@@ -1,9 +1,9 @@
 import { Container, Flex, Heading, Separator } from "@chakra-ui/react";
 import Link from "next/link";
-import { ROUTES } from "../constants";
-import { Avatar } from "./chakra/avatar";
-import AuthContext, { isAuthenticated } from "../contexts/auth-context";
 import { useContext } from "react";
+import { ROUTES } from "../constants";
+import AuthContext, { isAuthenticated } from "../contexts/auth";
+import { Avatar } from "./chakra/avatar";
 
 const Header = () => {
   const { auth } = useContext(AuthContext);

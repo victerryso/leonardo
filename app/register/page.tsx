@@ -1,18 +1,18 @@
 "use client";
 
 import { Button, Card, Input, Stack } from "@chakra-ui/react";
+import { redirect } from "next/navigation";
 import { useContext, useState } from "react";
 import AppLayout from "../components/app-layout";
 import { Field } from "../components/chakra/field";
-import AuthContext, { Auth, DEFAULT_AUTH } from "../contexts/auth-context";
-import { updateAuthInLocalStorage } from "../lib/local-storage";
-import { redirect } from "next/navigation";
 import { ROUTES } from "../constants";
+import AuthContext, { Auth, DEFAULT_AUTH } from "../contexts/auth";
+import { updateAuthInLocalStorage } from "../lib/local-storage";
 
 const RegisterPage = () => {
   const { auth = {}, setAuth } = useContext(AuthContext);
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<Auth>({
     ...DEFAULT_AUTH,
     ...auth,
   });

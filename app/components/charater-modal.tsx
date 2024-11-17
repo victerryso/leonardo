@@ -1,5 +1,10 @@
 import { useQuery } from "@apollo/client";
+import { Flex } from "@chakra-ui/react";
+import { redirect } from "next/navigation";
 import { createGetCharacterQuery } from "../api/queries";
+import { ROUTES } from "../constants";
+import { Avatar } from "./chakra/avatar";
+import { DataListItem, DataListRoot } from "./chakra/data-list";
 import {
   DialogBody,
   DialogCloseTrigger,
@@ -8,13 +13,8 @@ import {
   DialogRoot,
   DialogTitle,
 } from "./chakra/dialog";
-import { redirect } from "next/navigation";
-import { ROUTES } from "../constants";
-import Loading from "./loading";
 import ErrorMessage from "./error-message";
-import { DataListItem, DataListRoot } from "./chakra/data-list";
-import { Avatar } from "./chakra/avatar";
-import { Flex } from "@chakra-ui/react";
+import Loading from "./loading";
 
 interface CharacterModalProps {
   characterId: string;

@@ -1,13 +1,11 @@
 "use client";
 
-import React, { useContext, useEffect, useState } from "react";
-import AppLayout from "./components/app-layout";
-import AuthContext from "./contexts/auth-context";
-import { Center, Heading, Stack } from "@chakra-ui/react";
 import { useQuery } from "@apollo/client";
+import { Center, Heading, HStack, Stack } from "@chakra-ui/react";
+import { useSearchParams } from "next/navigation";
+import React, { useContext, useEffect, useState } from "react";
 import { createGetCharactersQuery } from "./api/queries";
-import CharacterList from "./components/character-list";
-import { HStack } from "@chakra-ui/react";
+import AppLayout from "./components/app-layout";
 import {
   PaginationItems,
   PaginationNextTrigger,
@@ -15,10 +13,11 @@ import {
   PaginationPrevTrigger,
   PaginationRoot,
 } from "./components/chakra/pagination";
-import { useSearchParams } from "next/navigation";
+import CharacterList from "./components/character-list";
 import CharacterModal from "./components/charater-modal";
-import Loading from "./components/loading";
 import ErrorMessage from "./components/error-message";
+import Loading from "./components/loading";
+import AuthContext from "./contexts/auth";
 
 const PAGE_SIZE = 20;
 

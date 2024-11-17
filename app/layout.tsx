@@ -2,15 +2,15 @@
 
 import ApolloProvider from "@/app/components/apollo-provider";
 import ChakraProvider from "@/app/components/chakra/provider";
+import { redirect, usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import { ROUTES } from "./constants";
 import AuthContext, {
+  Auth,
   DEFAULT_AUTH,
   isAuthenticated,
-} from "./contexts/auth-context";
-import { useEffect, useState } from "react";
+} from "./contexts/auth";
 import { getAuthFromLocalStorage } from "./lib/local-storage";
-import { redirect } from "next/navigation";
-import { usePathname } from "next/navigation";
-import { ROUTES } from "./constants";
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -18,8 +18,8 @@ interface RootLayoutProps {
 
 const RootLayout = ({ children }: RootLayoutProps) => {
   const pathname = usePathname();
-  const [auth, setAuth] = useState(DEFAULT_AUTH);
-  const [isReady, toggleReady] = useState(false);
+  const [auth, setAuth] = useState<Auth>(DEFAULT_AUTH);
+  const [isReady, toggleReady] = useState<boolean>(false);
 
   // Get auth from the local storage and save it to the auth context
   useEffect(() => {
