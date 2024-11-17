@@ -25,6 +25,7 @@ type HandleOpenChange = {
 };
 
 const CharacterModal = ({ characterId }: CharacterModalProps) => {
+  // Get data of character using GraphQL
   const getCharacterQuery = createGetCharacterQuery(characterId);
   const { data, loading, error } = useQuery(getCharacterQuery);
 

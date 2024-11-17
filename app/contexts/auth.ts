@@ -16,7 +16,8 @@ const AuthContext = createContext({
   setAuth: (_: any) => {},
 });
 
-export const isAuthenticated = (auth: Auth) => {
+// Check if user is registered
+export const isRegistered = (auth: Auth) => {
   return Boolean(auth.username);
 };
 

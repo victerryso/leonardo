@@ -5,11 +5,7 @@ import ChakraProvider from "@/app/components/chakra/provider";
 import { redirect, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ROUTES } from "./constants";
-import AuthContext, {
-  Auth,
-  DEFAULT_AUTH,
-  isAuthenticated,
-} from "./contexts/auth";
+import AuthContext, { Auth, DEFAULT_AUTH, isRegistered } from "./contexts/auth";
 import { getAuthFromLocalStorage } from "./lib/local-storage";
 
 interface RootLayoutProps {
@@ -29,11 +25,11 @@ const RootLayout = ({ children }: RootLayoutProps) => {
     toggleReady(true);
   }, []);
 
-  // If the user isn't authenticated, redirect them to the register path
+  // If the user isn't registered, redirect them to the register path
   useEffect(() => {
     const isRegisterPath = pathname === ROUTES.REGISTER;
 
-    if (isReady && !isAuthenticated(auth) && !isRegisterPath) {
+    if (isReady && !isRegistered(auth) && !isRegisterPath) {
       redirect(ROUTES.REGISTER);
     }
   }, [auth, isReady, pathname]);

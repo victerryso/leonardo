@@ -28,12 +28,14 @@ const HomePage = () => {
   const [characterId, setCharacterId] = useState<string | null>(null);
   const [page, setPage] = useState<number>(1);
 
+  // When the search parameters change, update the character id
   useEffect(() => {
     const characterId = searchParams.get("characterId");
 
     setCharacterId(characterId);
   }, [searchParams]);
 
+  // Get data of characters using GraphQL
   const getCharactersQuery = createGetCharactersQuery(page);
   const { data, loading, error } = useQuery(getCharactersQuery);
 
@@ -47,7 +49,7 @@ const HomePage = () => {
         {error && <ErrorMessage />}
         {data && (
           <Stack gap="4">
-            <Heading as="h1">Howdy {auth.username}! 👋</Heading>
+            <Heading as="h1">Howdy {auth.username ?? "there"}! 👋</Heading>
 
             <CharacterList characters={characters} />
 

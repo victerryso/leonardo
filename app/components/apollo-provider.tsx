@@ -4,6 +4,7 @@ interface ProviderProps {
   children: React.ReactNode;
 }
 
+// https://rickandmortyapi.com/documentation
 const client = new ApolloClient({
   uri: "https://rickandmortyapi.com/graphql",
   cache: new InMemoryCache(),

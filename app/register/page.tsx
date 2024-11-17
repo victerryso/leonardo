@@ -10,13 +10,14 @@ import AuthContext, { Auth, DEFAULT_AUTH } from "../contexts/auth";
 import { updateAuthInLocalStorage } from "../lib/local-storage";
 
 const RegisterPage = () => {
-  const { auth = {}, setAuth } = useContext(AuthContext);
+  const { auth = DEFAULT_AUTH, setAuth } = useContext(AuthContext);
 
   const [formData, setFormData] = useState<Auth>({
     ...DEFAULT_AUTH,
     ...auth,
   });
 
+  // Update form data when input fields are changed
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
@@ -24,6 +25,7 @@ const RegisterPage = () => {
     });
   };
 
+  // Callback when form is submitted
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -41,7 +43,7 @@ const RegisterPage = () => {
         <form onSubmit={handleSubmit}>
           <Card.Root maxW="fluid">
             <Card.Header>
-              <Card.Title>Howdy there! 👋</Card.Title>
+              <Card.Title>Howdy {auth.username ?? "there"}! 👋</Card.Title>
               <Card.Description>
                 Fill in the form below to continue
               </Card.Description>
@@ -50,7 +52,6 @@ const RegisterPage = () => {
               <Stack gap="4" w="full">
                 <Field label="Username" required>
                   <Input
-                    minLength={1}
                     name="username"
                     onChange={handleChange}
                     value={formData.username}
@@ -58,7 +59,6 @@ const RegisterPage = () => {
                 </Field>
                 <Field label="Job title" required>
                   <Input
-                    minLength={1}
                     name="jobTitle"
                     onChange={handleChange}
                     value={formData.jobTitle}
