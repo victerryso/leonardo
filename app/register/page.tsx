@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Card, Center, Input, Stack } from "@chakra-ui/react";
+import { Button, Card, Input, Stack } from "@chakra-ui/react";
 import { redirect } from "next/navigation";
 import { useContext, useState } from "react";
 import AppLayout from "../components/app-layout";
