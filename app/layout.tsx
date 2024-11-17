@@ -1,7 +1,7 @@
 "use client";
 
 import ApolloProvider from "@/app/components/apollo-provider";
-import ChakraProvider from "@/app/components/chakra-provider";
+import ChakraProvider from "@/app/components/chakra/provider";
 import AuthContext, {
   DEFAULT_AUTH,
   isAuthenticated,
