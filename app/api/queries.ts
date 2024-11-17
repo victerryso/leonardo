@@ -22,8 +22,14 @@ export const createGetCharacterQuery = (id: string) => {
   return gql`
     query {
       character(id: ${id}) {
+        created
+        gender
         id
+        image
         name
+        species
+        status
+        type
       }
     }
   `;

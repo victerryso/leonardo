@@ -12,6 +12,9 @@ import { redirect } from "next/navigation";
 import { ROUTES } from "../constants";
 import Loading from "./loading";
 import ErrorMessage from "./error-message";
+import { DataListItem, DataListRoot } from "./chakra/data-list";
+import { Avatar } from "./chakra/avatar";
+import { Flex } from "@chakra-ui/react";
 
 interface CharacterModalProps {
   characterId: string;
@@ -37,13 +40,33 @@ const CharacterModal = ({ characterId }: CharacterModalProps) => {
   return (
     <DialogRoot open onOpenChange={handleOpenChange}>
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle>{character?.name}</DialogTitle>
-        </DialogHeader>
+        {character && (
+          <DialogHeader>
+            <Flex gap="4" align="center">
+              <Avatar name={character?.name} src={character?.image} />
+              <DialogTitle>{character?.name}</DialogTitle>
+            </Flex>
+          </DialogHeader>
+        )}
         <DialogBody>
           {loading && <Loading />}
           {error && <ErrorMessage />}
-          {data && <p>{character.species}</p>}
+          {character && (
+            <DataListRoot orientation="horizontal">
+              {character.gender && (
+                <DataListItem label="Gender" value={character.gender} />
+              )}
+              {character.species && (
+                <DataListItem label="Species" value={character.species} />
+              )}
+              {character.status && (
+                <DataListItem label="Status" value={character.status} />
+              )}
+              {character.type && (
+                <DataListItem label="Type" value={character.type} />
+              )}
+            </DataListRoot>
+          )}
         </DialogBody>
         <DialogCloseTrigger />
       </DialogContent>
