@@ -1,23 +1,23 @@
 "use client";
 
 import { useQuery } from "@apollo/client";
-import { Center, Heading, HStack, Stack } from "@chakra-ui/react";
-import { useSearchParams } from "next/navigation";
+import { Heading, SimpleGrid, Stack } from "@chakra-ui/react";
+import { redirect, useSearchParams } from "next/navigation";
 import React, { useContext, useEffect, useState } from "react";
 import { createGetCharactersQuery } from "./api/queries";
 import AppLayout from "./components/app-layout";
-import {
-  PaginationItems,
-  PaginationNextTrigger,
-  PaginationPageText,
-  PaginationPrevTrigger,
-  PaginationRoot,
-} from "./components/chakra/pagination";
-import CharacterList from "./components/character-list";
 import CharacterModal from "./components/charater-modal";
 import ErrorMessage from "./components/error-message";
 import Loading from "./components/loading";
 import AuthContext from "./contexts/auth";
+import CharacterItem from "./components/character-item";
+import Pagination from "./components/pagination";
+
+type Character = {
+  id: string;
+  image: string;
+  name: string;
+};
 
 const PAGE_SIZE = 20;
 
@@ -28,11 +28,11 @@ const HomePage = () => {
   const [characterId, setCharacterId] = useState<string | null>(null);
   const [page, setPage] = useState<number>(1);
 
-  // When the search parameters change, update the character id
+  // When the search parameters change, update the page state
   useEffect(() => {
-    const characterId = searchParams.get("characterId");
+    const page = Number(searchParams.get("page") ?? 1);
 
-    setCharacterId(characterId);
+    setPage(page);
   }, [searchParams]);
 
   // Get data of characters using GraphQL
@@ -51,29 +51,30 @@ const HomePage = () => {
           <Stack gap="4">
             <Heading as="h1">Howdy {auth.username ?? "there"}! 👋</Heading>
 
-            <CharacterList characters={characters} />
+            <SimpleGrid minChildWidth="32" gap="4" as="ul">
+              {characters.map((character: Character) => (
+                <CharacterItem
+                  key={character.id}
+                  image={character.image}
+                  name={character.name}
+                  onClick={() => setCharacterId(character.id)}
+                />
+              ))}
+            </SimpleGrid>
 
-            <Center>
-              <PaginationRoot
-                count={count}
-                page={page}
-                pageSize={PAGE_SIZE}
-                onPageChange={(event) => setPage(event.page)}
-              >
-                <HStack hideBelow="sm">
-                  <PaginationPrevTrigger />
-                  <PaginationItems />
-                  <PaginationNextTrigger />
-                </HStack>
-                <HStack hideFrom="sm">
-                  <PaginationPrevTrigger />
-                  <PaginationPageText />
-                  <PaginationNextTrigger />
-                </HStack>
-              </PaginationRoot>
-            </Center>
+            <Pagination
+              count={count}
+              page={page}
+              pageSize={PAGE_SIZE}
+              onPageChange={(event) => redirect(`/?page=${event.page}`)}
+            />
 
-            {characterId && <CharacterModal characterId={characterId} />}
+            {characterId && (
+              <CharacterModal
+                characterId={characterId}
+                onClose={() => setCharacterId(null)}
+              />
+            )}
           </Stack>
         )}
       </section>

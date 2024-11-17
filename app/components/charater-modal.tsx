@@ -1,8 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { Flex } from "@chakra-ui/react";
-import { redirect } from "next/navigation";
 import { createGetCharacterQuery } from "../api/queries";
-import { ROUTES } from "../constants";
 import { Avatar } from "./chakra/avatar";
 import { DataListItem, DataListRoot } from "./chakra/data-list";
 import {
@@ -18,28 +16,18 @@ import Loading from "./loading";
 
 interface CharacterModalProps {
   characterId: string;
+  onClose: () => void;
 }
 
-type HandleOpenChange = {
-  open: boolean;
-};
-
-const CharacterModal = ({ characterId }: CharacterModalProps) => {
+const CharacterModal = ({ characterId, onClose }: CharacterModalProps) => {
   // Get data of character using GraphQL
   const getCharacterQuery = createGetCharacterQuery(characterId);
   const { data, loading, error } = useQuery(getCharacterQuery);
 
   const character = data?.character;
 
-  // When we close the dialog, we update the route to go back home
-  const handleOpenChange = ({ open }: HandleOpenChange) => {
-    if (!open) {
-      redirect(ROUTES.HOME);
-    }
-  };
-
   return (
-    <DialogRoot open onOpenChange={handleOpenChange}>
+    <DialogRoot open onOpenChange={onClose}>
       <DialogContent>
         {character && (
           <DialogHeader>
