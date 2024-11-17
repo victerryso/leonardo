@@ -43,7 +43,9 @@ const RegisterPage = () => {
         <form onSubmit={handleSubmit}>
           <Card.Root maxW="fluid">
             <Card.Header>
-              <Card.Title>Howdy {auth.username ?? "there"}! 👋</Card.Title>
+              <Card.Title as="h1">
+                Howdy {auth.username ?? "there"}! 👋
+              </Card.Title>
               <Card.Description>
                 Fill in the form below to continue
               </Card.Description>
