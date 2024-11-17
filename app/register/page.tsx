@@ -3,7 +3,7 @@
 import { Button, Card, Input, Stack } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import AppLayout from "../components/app-layout";
-import { Field } from "../components/field";
+import { Field } from "../components/chakra/field";
 import AuthContext, { Auth, DEFAULT_AUTH } from "../contexts/auth-context";
 import { updateAuthInLocalStorage } from "../lib/local-storage";
 import { redirect } from "next/navigation";

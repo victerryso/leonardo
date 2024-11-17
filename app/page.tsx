@@ -7,14 +7,14 @@ import { Heading, Spinner, Stack } from "@chakra-ui/react";
 import { useQuery } from "@apollo/client";
 import { createGetCharactersQuery } from "./api/queries";
 import CharacterList from "./components/character-list";
-import { EmptyState } from "./components/empty-state";
+import { EmptyState } from "./components/chakra/empty-state";
 import { HStack } from "@chakra-ui/react";
 import {
   PaginationItems,
   PaginationNextTrigger,
   PaginationPrevTrigger,
   PaginationRoot,
-} from "./components/pagination";
+} from "./components/chakra/pagination";
 
 const PAGE_SIZE = 20;
 
