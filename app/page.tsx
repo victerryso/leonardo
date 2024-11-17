@@ -3,15 +3,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import AppLayout from "./components/app-layout";
 import AuthContext from "./contexts/auth-context";
-import { Center, Heading, Spinner, Stack } from "@chakra-ui/react";
+import { Center, Heading, Stack } from "@chakra-ui/react";
 import { useQuery } from "@apollo/client";
 import { createGetCharactersQuery } from "./api/queries";
 import CharacterList from "./components/character-list";
-import { EmptyState } from "./components/chakra/empty-state";
 import { HStack } from "@chakra-ui/react";
 import {
-  PaginationItems,
   PaginationNextTrigger,
+  PaginationPageText,
   PaginationPrevTrigger,
   PaginationRoot,
 } from "./components/chakra/pagination";
@@ -60,7 +59,7 @@ const HomePage = () => {
             >
               <HStack>
                 <PaginationPrevTrigger />
-                <PaginationItems />
+                <PaginationPageText />
                 <PaginationNextTrigger />
               </HStack>
             </PaginationRoot>
