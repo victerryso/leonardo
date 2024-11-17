@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AppLayout from "./components/app-layout";
 import AuthContext from "./contexts/auth-context";
-import { Heading, Spinner, Stack } from "@chakra-ui/react";
+import { Center, Heading, Spinner, Stack } from "@chakra-ui/react";
 import { useQuery } from "@apollo/client";
 import { createGetCharactersQuery } from "./api/queries";
 import CharacterList from "./components/character-list";
@@ -15,47 +15,60 @@ import {
   PaginationPrevTrigger,
   PaginationRoot,
 } from "./components/chakra/pagination";
+import { useSearchParams } from "next/navigation";
+import CharacterModal from "./components/charater-modal";
+import Loading from "./components/loading";
+import ErrorMessage from "./components/error-message";
 
 const PAGE_SIZE = 20;
 
 const HomePage = () => {
   const { auth } = useContext(AuthContext);
-  const [page, setPage] = useState(1);
+  const searchParams = useSearchParams();
+
+  const [characterId, setCharacterId] = useState<string | null>(null);
+  const [page, setPage] = useState<number>(1);
+
+  useEffect(() => {
+    const characterId = searchParams.get("characterId");
+
+    setCharacterId(characterId);
+  }, [searchParams]);
 
   const getCharactersQuery = createGetCharactersQuery(page);
   const { data, loading, error } = useQuery(getCharactersQuery);
 
-  if (loading) {
-    return <Spinner />;
-  }
-
-  if (error) {
-    return <EmptyState title="Something went wrong" />;
-  }
-
-  const characters = data.characters.results;
-  const count = data.characters.info.count;
+  const characters = data?.characters.results;
+  const count = data?.characters.info.count;
 
   return (
     <AppLayout>
-      <Stack>
-        <Heading as="h1">Howdy {auth.username}! 👋</Heading>
+      {loading && <Loading />}
+      {error && <ErrorMessage />}
+      {data && (
+        <Stack gap="4">
+          <Heading as="h1">Howdy {auth.username}! 👋</Heading>
 
-        <CharacterList characters={characters} />
+          <CharacterList characters={characters} />
 
-        <PaginationRoot
-          count={count}
-          page={page}
-          pageSize={PAGE_SIZE}
-          onPageChange={(event) => setPage(event.page)}
-        >
-          <HStack>
-            <PaginationPrevTrigger />
-            <PaginationItems />
-            <PaginationNextTrigger />
-          </HStack>
-        </PaginationRoot>
-      </Stack>
+          <Center>
+            <PaginationRoot
+              count={count}
+              page={page}
+              pageSize={PAGE_SIZE}
+              onPageChange={(event) => setPage(event.page)}
+            >
+              <HStack>
+                <PaginationPrevTrigger />
+                <PaginationItems />
+                <PaginationNextTrigger />
+              </HStack>
+            </PaginationRoot>
+          </Center>
+
+          {characterId && <CharacterModal characterId={characterId} />}
+        </Stack>
+      )}
     </AppLayout>
   );
 };

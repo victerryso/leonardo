@@ -1,6 +1,11 @@
 import { SimpleGrid } from "@chakra-ui/react";
 import CharacterItem from "./character-item";
-import { Character } from "../types";
+
+export type Character = {
+  id: string;
+  image: string;
+  name: string;
+};
 
 interface CharacterListProps {
   characters: Character[];

@@ -17,3 +17,14 @@ export const createGetCharactersQuery = (page = 1) => {
     }
   `;
 };
+
+export const createGetCharacterQuery = (id: string) => {
+  return gql`
+    query {
+      character(id: ${id}) {
+        id
+        name
+      }
+    }
+  `;
+};
